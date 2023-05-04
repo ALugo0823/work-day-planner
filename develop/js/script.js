@@ -1,24 +1,35 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-$(function () {
-    // TODO: Add a listener for click events on the save button. This code should
-    // use the id in the containing time-block as a key to save the user input in
-    // local storage. HINT: What does `this` reference in the click listener
-    // function? How can DOM traversal be used to get the "hour-x" id of the
-    // time-block containing the button that was clicked? How might the id be
-    // useful when saving the description in local storage?
-    //
-    // TODO: Add code to apply the past, present, or future class to each time
-    // block by comparing the id to the current hour. HINTS: How can the id
-    // attribute of each time-block be used to conditionally add or remove the
-    // past, present, and future classes? How can Day.js be used to get the
-    // current hour in 24-hour time?
-    //
-    // TODO: Add code to get any user input that was saved in localStorage and set
-    // the values of the corresponding textarea elements. HINT: How can the id
-    // attribute of each time-block be used to do this?
-    //
-    // TODO: Add code to display the current date in the header of the page.
-  });
-  
+//display date with the current time using dayJS
+$('#currentDay').text(dayjs().format('dddd, MMMM D h:mm'));
+
+//function that wraps up all the DOM elements using JQuery
+$(function() {
+  //event listener upon user clicking on the save button, function is called to store user input
+  $('.saveBtn').on('click', storeUserInput);
+  //function with stores user data in local storage
+  function storeUserInput(){
+    localStorage.setItem($(this).parents().attr('id'), $(this).siblings().eq(1).val());
+  }
+//function which checks current time and then uses conditional statement to determine which color the block will be
+  function timeBlock(){
+    var currentTime = dayjs().hour();
+    $('.time-block').each(function(){
+      var time = $(this).attr('id');
+      if (time < currentTime){
+        $(this).addClass('past');
+      } else if (time == currentTime){
+        $(this).addClass('present');
+      } else{
+        $(this).addClass('future');
+      }
+    });
+  }
+  timeBlock();
+//function which keeps the user input persistent. Upon refreshing the page, the users previous input is displayed
+  function loadUserData(){
+    $('.description').each(function(){
+      $(this).val(localStorage.getItem($(this).parents().attr('id')));
+    })
+  }
+  loadUserData();
+
+})
