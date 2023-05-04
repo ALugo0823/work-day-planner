@@ -7,7 +7,7 @@ N/A
 ## Usage
 Users need only a computer with a stable internet connection, and a list of tasks they may have in mind to input for their workday!
 In order to use the program, the user simply needs to type in any of the time blocks and then hit the save button.
-Deployed github URL: https://github.com/ALugo0823/work-day-planner
+Deployed github URL: https://alugo0823.github.io/work-day-planner/
 ![Workday-Scheduler](./assets/workday-planner-screenshot.png)
 
 ## Credits
